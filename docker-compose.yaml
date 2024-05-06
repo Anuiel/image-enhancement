@@ -1,0 +1,29 @@
+services:
+  tgbot:
+    build: bot
+    environment:
+      ML_SERVICE_URL: "http://model-apis:8090"
+    env_file:
+      - bot/.env
+    image: "anuiel/anuielbot"
+    ports:
+      - "8090:8888"
+    container_name: "tgbot"
+    command: ["python3", "main.py"]
+  # TODO: redo in nginx
+  model-apis:
+    build: model-apis
+    image: "anuiel/example-ml-serice"
+    environment:
+      GFPGAN_URL: "http://gfpgan:8090"
+    ports:
+      - "8091:8090"
+    container_name: "example-ml-serice"
+    command: ["python3", "main.py", "--port", "8090"]
+  gfpgan:
+    build: model
+    image: "anuiel/gfpgan"
+    ports:
+      - "8092:8090"
+    container_name: "gfpgan"
+    command: ["python3", "run.py", "--port", "8090"]
