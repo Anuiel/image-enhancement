@@ -27,3 +27,10 @@ services:
       - "8092:8090"
     container_name: "gfpgan"
     command: ["python3", "run.py", "--port", "8090"]
+  deblur:
+    build: deblur
+    image: "xiryss/deblur"
+    ports:
+      - "8093:8090"
+    container_name: "deblur"
+    command: ["python3", "run.py", "--port", "8090"]
