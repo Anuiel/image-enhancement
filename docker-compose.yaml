@@ -39,7 +39,16 @@ services:
       - "8093:8090"
     container_name: "deblur"
     volumes:
-      - weights:/home/deblur/weights228
+      - ./weights/deblur/motion_deblurring.pth:/home/deblur/Restormer/Motion_Deblurring/pretrained_models/motion_deblurring.pth
+      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Single_Image_Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
     command: ["python3", "run.py", "--port", "8090"]
-volumes:
-  weights:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+# volumes:
+#   /home/ypustovalov/image-enhancement/weights:
+  # weights/deblur/single_image_defocus_deblurring.pth:

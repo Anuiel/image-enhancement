@@ -1,4 +1,5 @@
-FROM nvcr.io/nvidia/cuda:11.4.0-base-ubuntu20.04
+FROM nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+# FROM python:3.11.9-bullseye
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -11,7 +12,11 @@ RUN apt-get update && \
         python3-dev \
         python3-opencv \
         libglib2.0-0
-
+# RUN add-apt-repository ppa:deadsnakes/ppa
+# RUN apt-get -y upgrade --fix-missing
+# RUN apt-get install python==3.11.9
+RUN python3 --version
+# RUN apt install pytho
 # Upgrade pip
 RUN mkdir /home/deblur
 WORKDIR /home/deblur
@@ -32,8 +37,13 @@ RUN apt install sudo
 RUN pip3 install scipy dominate 
 RUN pip3 install pandas scikit-learn basicsr
 RUN pip3 install argparse optuna catboost
-
+RUN pip3 install typing
+# RUN cd .. && mkdir weights228
 RUN python3 setup.py develop --no_cuda_ext
-
-RUN cp ../weights228/motion_deblurring.pth Motion_Deblurring/pretrained_models/
-RUN cp ../weights228/single_image_defocus_deblurring.pth Defocus_Deblurring/pretrained_models
+COPY api_requirements.txt api_requirements.txt
+RUN pip3 install -r api_requirements.txt 
+COPY run.py run.py
+# RUN ls ../weights228
+# RUN ls .. -a
+# RUN cp ../weights228/motion_deblurring.pth Motion_Deblurring/pretrained_models/
+# RUN cp ../weights228/single_image_defocus_deblurring.pth Defocus_Deblurring/pretrained_models
