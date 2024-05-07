@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse
 auth = FastAPI()
 
 
-def model_eval(image_name: str, version: str = '1.4', scale: int = 4) -> str:
+def model_eval(image_name: str, version: str = '1.4', scale: int = 2) -> str:
     subprocess.run(
         ['python3', 'GFPGAN/inference_gfpgan.py', '-i', image_name, '-v', version, '-s', str(scale)]
     )
