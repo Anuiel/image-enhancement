@@ -33,4 +33,8 @@ services:
     ports:
       - "8093:8090"
     container_name: "deblur"
+    volumes:
+      - weights:/home/deblur/weights228
     command: ["python3", "run.py", "--port", "8090"]
+volumes:
+  weights:
