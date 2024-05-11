@@ -18,6 +18,8 @@ services:
       - "8091:8090"
     volumes:
       - /var/log/nginx:/var/log/nginx
+    depends_on:
+      - lowlight
   gfpgan:
     build: model
     image: "anuiel/gfpgan"
@@ -49,6 +51,20 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  lowlight:
+    build: lowlight
+    image: ""
+    ports:
+      - "8094:8090"
+    container_name: "lowlight"
+    command: ["python3", "run.py", "--port", "8090"]
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
 # volumes:
 #   /home/ypustovalov/image-enhancement/weights:
   # weights/deblur/single_image_defocus_deblurring.pth:
