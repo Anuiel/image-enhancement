@@ -10,7 +10,8 @@ services:
       - "8090:8888"
     container_name: "tgbot"
     command: ["python3", "main.py"]
-  # TODO: redo in nginx
+    depends_on:
+      - middleware
   middleware:
     build: api
     image: "anuiel/nginx"
@@ -19,13 +20,16 @@ services:
     volumes:
       - /var/log/nginx:/var/log/nginx
     depends_on:
-      - lowlight
-  gfpgan:
-    build: model
+      - face-upscale
+  face-upscale:
+    build: face-upscale
     image: "anuiel/gfpgan"
     ports:
       - "8092:8090"
     container_name: "gfpgan"
+    volumes:
+      - ./weights/face-upscale/RealESRGAN_x2plus.pth:/usr/local/lib/python3.11/site-packages/weights/RealESRGAN_x2plus.pth
+      - ./weights/face-upscale:/home/GFPGAN/gfpgan/weights
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
@@ -65,6 +69,3 @@ services:
     #         - driver: nvidia
     #           count: 1
     #           capabilities: [gpu]
-# volumes:
-#   /home/ypustovalov/image-enhancement/weights:
-  # weights/deblur/single_image_defocus_deblurring.pth:

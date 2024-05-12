@@ -1,2 +1,1 @@
-weights/deblur/motion_deblurring.pth
-weights/deblur/single_image_defocus_deblurring.pth
+*.pth
