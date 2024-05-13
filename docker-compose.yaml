@@ -20,9 +20,15 @@ services:
     volumes:
       - /var/log/nginx:/var/log/nginx
     depends_on:
+<<<<<<< HEAD
       - face-upscale
   face-upscale:
     build: face-upscale
+=======
+      - deblur
+  gfpgan:
+    build: model
+>>>>>>> 3597d45da5b32da2bbe49204533942fde969bd2f
     image: "anuiel/gfpgan"
     ports:
       - "8092:8090"
@@ -47,7 +53,7 @@ services:
     container_name: "deblur"
     volumes:
       - ./weights/deblur/motion_deblurring.pth:/home/deblur/Restormer/Motion_Deblurring/pretrained_models/motion_deblurring.pth
-      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Single_Image_Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
+      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
@@ -56,6 +62,7 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+<<<<<<< HEAD
   lowlight:
     build: lowlight
     image: ""
@@ -70,3 +77,9 @@ services:
     #         - driver: nvidia
     #           count: 1
     #           capabilities: [gpu]
+=======
+  
+# volumes:
+#   /home/ypustovalov/image-enhancement/weights:
+  # weights/deblur/single_image_defocus_deblurring.pth:
+>>>>>>> 3597d45da5b32da2bbe49204533942fde969bd2f
