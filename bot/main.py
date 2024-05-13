@@ -4,9 +4,7 @@ import asyncio
 import sys
 import requests
 
-from aiogram import types
-from aiogram import Bot, Dispatcher
-from aiogram import F
+from aiogram import types, Bot, Dispatcher, F
 from aiogram.filters import Command, StateFilter
 from aiogram.types import FSInputFile, KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from aiogram.fsm.state import StatesGroup, State

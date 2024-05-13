@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TARGET_DIR=$(pwd)/weights/face-upscale
 
 [ -f $TARGET_DIR/RealESRGAN_x2plus.pth ] || wget -nv -P $TARGET_DIR https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth
@@ -7,3 +9,9 @@ TARGET_DIR=$(pwd)/weights/face-upscale
 [ -f $TARGET_DIR/GFPGANv1.3.pth ] || wget -nv -P $TARGET_DIR https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.3.pth
 [ -f $TARGET_DIR/GFPGANv1.4.pth ] || wget -nv -P $TARGET_DIR https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth
 [ -f $TARGET_DIR/RestoreFormer.pth ] || wget -nv -P $TARGET_DIR https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/RestoreFormer.pth
+
+if ! [ -f $TARGET_DIR/buffalo_l.zip ]
+then
+    wget -nv -P $TARGET_DIR https://github.com/deepinsight/insightface/releases/download/v0.7/buffalo_l.zip
+    unzip $TARGET_DIR/buffalo_l.zip -d $TARGET_DIR/buffalo_l
+fi

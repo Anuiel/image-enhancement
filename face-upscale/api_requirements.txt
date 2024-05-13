@@ -1,6 +1,10 @@
+# Api
 fastapi==0.104.1
 pydantic==2.5.2
 click==8.1.7
 uvicorn==0.24.0
-
 python-multipart
+
+# Model selection
+insightface==0.7.3
+onnxruntime==1.17.3

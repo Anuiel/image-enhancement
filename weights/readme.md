@@ -2,6 +2,7 @@ Directory with weights for models and scripts to download
 
 ### Face upscaling
 
+Execute `face-upscale/dowload.sh` from root of repo
 
 ### Debluring
 

@@ -22,11 +22,16 @@ RUN pip3 install -r GFPGAN/requirements.txt
 RUN sed -i 's/transforms.functional_tensor/transforms.functional/g' $(find / -name "degradations.py")
 RUN cd GFPGAN && python3 setup.py develop
 RUN mkdir -p /usr/local/lib/python3.11/site-packages/weights
+# Clean up log files
+RUN sed -i "1s/^/import warnings; warnings.simplefilter('ignore', UserWarning)\n/" GFPGAN/inference_gfpgan.py
+# MODEL SELECTION PART
 
 # API PART
 
 COPY api_requirements.txt api_requirements.txt
 RUN pip3 install --no-cache-dir -r api_requirements.txt
 COPY run.py run.py
+COPY model_selection.py model_selection.py
+RUN mkdir -p /root/.insightface/models/buffalo_l
 
 CMD python3 run.py --port 8090

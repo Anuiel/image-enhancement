@@ -30,6 +30,7 @@ services:
     volumes:
       - ./weights/face-upscale/RealESRGAN_x2plus.pth:/usr/local/lib/python3.11/site-packages/weights/RealESRGAN_x2plus.pth
       - ./weights/face-upscale:/home/GFPGAN/gfpgan/weights
+      - ./weights/face-upscale/buffalo_l:/root/.insightface/models/buffalo_l
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
