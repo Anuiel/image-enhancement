@@ -2,11 +2,13 @@ from typing import Annotated
 import subprocess
 import os
 import logging
+import traceback
 
 import click
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 
 auth = FastAPI()
 
@@ -36,7 +38,7 @@ async def enhance(
         contents = await image.read()
         with open(input_image_name, 'wb') as input_image:
             input_image.write(contents)
-        os.mkdir('restored')
+        os.makedirs('restored',exist_ok = True)
         # logging.info("Eval start")
         output_image_name = model_eval(input_image_name)    
             
