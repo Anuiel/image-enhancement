@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+FROM nvcr.io/nvidia/cuda:12.3.1-base-ubuntu22.04
 # FROM python:3.11.9-bullseye
 
 # Set environment variables

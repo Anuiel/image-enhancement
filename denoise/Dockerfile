@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+FROM nvcr.io/nvidia/cuda:12.3.1-base-ubuntu22.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive

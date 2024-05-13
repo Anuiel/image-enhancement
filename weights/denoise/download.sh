@@ -1,0 +1,1 @@
+wget https://github.com/swz30/Restormer/releases/download/v1.0/real_denoising.pth -O restormer_denoising.pth

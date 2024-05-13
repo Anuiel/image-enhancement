@@ -27,7 +27,6 @@ from PIL import Image
 async def enhance(
     image: Annotated[UploadFile, File()]
 ):
-    print(1)
     tb = "No error"
     try:
         input_image_name = image.filename
@@ -48,9 +47,6 @@ async def enhance(
         tb += traceback.format_exc()
         return JSONResponse(content={"message": tb})
     return kek
-    # TODO: Fix this shit
-    os.remove(output_image_name)
-    os.remove(input_image_name)
 
 
 @click.command()

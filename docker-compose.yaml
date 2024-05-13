@@ -20,15 +20,12 @@ services:
     volumes:
       - /var/log/nginx:/var/log/nginx
     depends_on:
-<<<<<<< HEAD
-      - face-upscale
+      # - face-upscale
+      - lowlight
+      # - denoise
+      # - deblur
   face-upscale:
     build: face-upscale
-=======
-      - deblur
-  gfpgan:
-    build: model
->>>>>>> 3597d45da5b32da2bbe49204533942fde969bd2f
     image: "anuiel/gfpgan"
     ports:
       - "8092:8090"
@@ -62,24 +59,33 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-<<<<<<< HEAD
   lowlight:
     build: lowlight
-    image: ""
+    image: "ligay/lowlight"
     ports:
       - "8094:8090"
     container_name: "lowlight"
     command: ["python3", "run.py", "--port", "8090"]
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
-=======
-  
-# volumes:
-#   /home/ypustovalov/image-enhancement/weights:
-  # weights/deblur/single_image_defocus_deblurring.pth:
->>>>>>> 3597d45da5b32da2bbe49204533942fde969bd2f
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  denoise:
+    build: denoise
+    image: "basharin/denoise"
+    ports:
+      - "8095:8090"
+    container_name: "denoise"
+    volumes:
+      - ./weights/denoise:/home/mnt denoise_image
+    command: ["python3", "run.py", "--port", "8090"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

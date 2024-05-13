@@ -26,7 +26,7 @@ class FaceUpscalingState(StatesGroup):
 
 avaliable_services = {
     'Face upscale': 'face-upscale',
-    'Low light enrichment': 'lowlights',
+    'Low light enrichment': 'lowlight',
     'other': None,
 }
 
@@ -64,9 +64,12 @@ async def select_params(message: types.Message, state: FSMContext):
             reply_markup=make_row_keyboard(FaceUpscalingState.valid_scale)
         )
         await state.set_state(FaceUpscalingState.scale)
-    elif service_selected == 'other':
-        # your service
-        pass
+    elif service_selected == 'Low light enrichment':
+        await message.answer(
+            text="Insert image for enhancment",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        await state.set_state(ServiceSelection.image)
 
 # --------------- Face upscaling -------------------
 
