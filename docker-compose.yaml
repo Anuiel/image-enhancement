@@ -20,10 +20,10 @@ services:
     volumes:
       - /var/log/nginx:/var/log/nginx
     depends_on:
-      # - face-upscale
+      - face-upscale
       - lowlight
-      # - denoise
-      # - deblur
+      - denoise
+      - deblur
   face-upscale:
     build: face-upscale
     image: "anuiel/gfpgan"
@@ -49,8 +49,8 @@ services:
       - "8093:8090"
     container_name: "deblur"
     volumes:
-      - ./weights/deblur/motion_deblurring.pth:/home/deblur/Restormer/Motion_Deblurring/pretrained_models/motion_deblurring.pth
-      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
+      - ./weights/deblur:/home/deblur/Restormer/Motion_Deblurring/pretrained_models
+      - ./weights/deblur:/home/deblur/Restormer/Defocus_Deblurring/pretrained_models
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
@@ -80,7 +80,8 @@ services:
       - "8095:8090"
     container_name: "denoise"
     volumes:
-      - ./weights/denoise:/home/mnt denoise_image
+      - ./weights/denoise:/home/mnt/Pretrained
+      - ./denoise:/home/mnt
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:

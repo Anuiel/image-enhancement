@@ -27,7 +27,8 @@ class FaceUpscalingState(StatesGroup):
 avaliable_services = {
     'Face upscale': 'face-upscale',
     'Low light enrichment': 'lowlight',
-    'other': None,
+    'Deblurring': 'deblur',
+    'Denoising': 'denoise',
 }
 
 def make_row_keyboard(items: list[str]) -> ReplyKeyboardMarkup:
@@ -66,7 +67,19 @@ async def select_params(message: types.Message, state: FSMContext):
         await state.set_state(FaceUpscalingState.scale)
     elif service_selected == 'Low light enrichment':
         await message.answer(
-            text="Insert image for enhancment",
+            text="Insert image for enhancement",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        await state.set_state(ServiceSelection.image)
+    elif service_selected == 'Deblurring':
+        await message.answer(
+            text="Insert image for enhancement",
+            reply_markup=ReplyKeyboardRemove()
+        )
+        await state.set_state(ServiceSelection.image)
+    elif service_selected == 'Denoising':
+        await message.answer(
+            text="Insert image for enhancement",
             reply_markup=ReplyKeyboardRemove()
         )
         await state.set_state(ServiceSelection.image)
@@ -80,7 +93,7 @@ async def select_params(message: types.Message, state: FSMContext):
 async def face_upscale_select_scale(message: types.Message, state: FSMContext):
     await state.update_data(scale=message.text)
     await message.answer(
-        text="Insert image for enhancment",
+        text="Insert image for enhanecment",
         reply_markup=ReplyKeyboardRemove()
     )
     await state.set_state(ServiceSelection.image)

@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse
 auth = FastAPI()
 
 
-def model_eval(image_name: str, version: str = '1.4', scale: int = 2) -> str:
+def model_eval(image_name: str) -> str:
     subprocess.run(
         ['python3', 'mnt/restore_image.py', image_name]
     )

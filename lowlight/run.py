@@ -1,15 +1,18 @@
 from typing import Annotated
 import subprocess
 import os
+import logging
+import sys
+import traceback
 
+from PIL import Image
 import click
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.responses import JSONResponse
-import traceback
-auth = FastAPI()
 
+auth = FastAPI()
 
 def model_eval(image_name: str) -> str:
     res = subprocess.run(
@@ -21,12 +24,12 @@ def model_eval(image_name: str) -> str:
     if res.returncode != 0:
         return res.stderr + "OUTPUT" + res.stdout
     return f'output/{image_name}'
-from PIL import Image
 
 @auth.post("/enhance")
 async def enhance(
     image: Annotated[UploadFile, File()]
 ):
+    logging.info('Got request')
     tb = "No error"
     try:
         input_image_name = image.filename
@@ -55,6 +58,7 @@ async def enhance(
 @click.option('--port', type=int)
 def cli(port: int | None):
     assert port is not None
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     uvicorn.run(auth, host="0.0.0.0", port=port)
 
 if __name__ == '__main__':

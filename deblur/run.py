@@ -2,6 +2,7 @@ from typing import Annotated
 import subprocess
 import os
 import logging
+import sys
 import traceback
 
 import click
@@ -31,8 +32,7 @@ async def enhance(
     # assert False
     # return JSONResponse(content={"message": "XD"})
     input_image_name = 'input.png'
-    print('here')
-    # logging.info("Start")
+    logging.info("Got request")
     tb = 'No error'
     try:
         contents = await image.read()
@@ -61,7 +61,7 @@ async def enhance(
 @click.option('--port', type=int)
 def cli(port: int | None):
     assert port is not None
-    # logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     uvicorn.run(auth, host="0.0.0.0", port=port)
 
 if __name__ == '__main__':

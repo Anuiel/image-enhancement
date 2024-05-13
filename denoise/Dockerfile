@@ -49,4 +49,4 @@ RUN conda create -n nafnet -y \
     && conda run -n nafnet pip install -r NAFNet_requirements.txt
 
 COPY run.py run.py
-ENTRYPOINT python run.py --port 54321
+CMD python run.py --port 54321

@@ -2,3 +2,4 @@
 *.zip
 *.onnx
 .eggs
+denoise/tmp
