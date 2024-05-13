@@ -42,7 +42,7 @@ services:
     container_name: "deblur"
     volumes:
       - ./weights/deblur/motion_deblurring.pth:/home/deblur/Restormer/Motion_Deblurring/pretrained_models/motion_deblurring.pth
-      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Single_Image_Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
+      - ./weights/deblur/single_image_defocus_deblurring.pth:/home/deblur/Restormer/Defocus_Deblurring/pretrained_models/single_image_defocus_deblurring.pth
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
