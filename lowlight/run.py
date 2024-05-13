@@ -7,6 +7,7 @@ import uvicorn
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.responses import JSONResponse
+from starlette.background import BackgroundTask
 import traceback
 auth = FastAPI()
 
@@ -45,7 +46,13 @@ async def enhance(
         if not os.path.isfile(output_image_name):
             return JSONResponse(content={"message": output_image_name})
             assert False
-        kek = FileResponse(output_image_name)
+        def cleanup():
+            os.remove(input_image_name)
+            os.remove(output_image_name)
+        kek = FileResponse(output_image_name, background=BackgroundTask(cleanup))
+        
+        os.remove(os.path.join("input", input_image_name))
+        os.remove(output_image_name)    
     except:
         tb += traceback.format_exc()
         return JSONResponse(content={"message": tb})
