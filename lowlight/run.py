@@ -30,14 +30,16 @@ async def enhance(
     tb = "No error"
     try:
         input_image_name = image.filename
-        os.mkdir("input")
+        if not os.path.exists("input"):
+            os.mkdir("input")
         contents = image.file.read()
         with open(os.path.join("input", input_image_name), 'wb') as input_image:
             input_image.write(contents)
         image.file.close()
         with Image.open(os.path.join("input", input_image_name)) as img:
             pass
-        os.mkdir("output")
+        if not os.path.exists("output"):
+            os.mkdir("output")
         output_image_name = model_eval(input_image_name)
         if not os.path.isfile(output_image_name):
             return JSONResponse(content={"message": output_image_name})
