@@ -13,15 +13,19 @@ from fastapi.responses import JSONResponse
 auth = FastAPI()
 
 
-def model_eval(image_name: str, version: str = 'Single_Image_Defocus_Deblurring', scale: int = 4) -> str:#can be Motion_Deblurring also
+def model_eval(image_name: str) -> str:
     res = subprocess.run(
-        ['python3', 'demo.py', '--input_dir', image_name, '--task', version, '--result_dir', 'restored/'],capture_output=True,
+        ['python3', 'infcnn.py', image_name],capture_output=True,
         text=True,
     )
     if res.returncode != 0: 
         return res.stderr + "OUTPUT" + res.stdout
-
-    return f'restored/{version}/{image_name}'
+    true_image_name = image_name
+    if image_name[-4:] == '.jpg':
+        true_image_name = image_name[:-4] + '.png'    
+    elif image_name[-5:] == '.jpeg':
+        true_image_name = image_name[:-5] + '.png'
+    return f'restored/{image_name}'
 
 
 @auth.post("/enhance")
