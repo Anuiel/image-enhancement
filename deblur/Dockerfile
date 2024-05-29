@@ -43,6 +43,7 @@ RUN python3 setup.py develop --no_cuda_ext
 COPY api_requirements.txt api_requirements.txt
 RUN pip3 install -r api_requirements.txt 
 COPY run.py run.py
+COPY infcnn.py infcnn.py
 # RUN ls ../weights228
 # RUN ls .. -a
 # RUN cp ../weights228/motion_deblurring.pth Motion_Deblurring/pretrained_models/

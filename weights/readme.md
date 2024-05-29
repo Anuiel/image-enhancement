@@ -4,10 +4,12 @@ Directory with weights for models and scripts to download
 
 Execute `face-upscale/dowload.sh` from root of repo
 
-### Debluring
+### Deblurring
 
 Upload `single_image_defocus_deblurring.pth` from [https://drive.google.com/drive/folders/1bRBG8DG_72AGA6-eRePvChlT5ZO4cwJ4][google drive] and 
 [https://drive.google.com/drive/folders/1czMyfRTQDX3j3ErByYeZ1PM4GVLbJeGK][google drive] into `weights/deblur`
+
+Upload [https://drive.google.com/file/d/1-5Tqu9f2cnDXtNN54FxHqjnXPJvWbT7k/view?usp=drive_link] to `weights/deblur`
 
 ### Denoise
 

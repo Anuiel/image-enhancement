@@ -51,6 +51,8 @@ services:
     volumes:
       - ./weights/deblur:/home/deblur/Restormer/Motion_Deblurring/pretrained_models
       - ./weights/deblur:/home/deblur/Restormer/Defocus_Deblurring/pretrained_models
+      - ./weights/deblur/CNNweights.pth:/home/deblur/Restormer/CNNweights.pth
+
     command: ["python3", "run.py", "--port", "8090"]
     deploy:
       resources:
