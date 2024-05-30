@@ -36,7 +36,7 @@ def make_row_keyboard(items: list[str]) -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(keyboard=[row], resize_keyboard=True)
 
 
-@dp.message(Command("/start"))
+@dp.message(Command("start"))
 async def start_message(message: types.Message):
     await message.answer(
         text="This is image enhancement bot. To start press button or type /enhance",
