@@ -3,3 +3,5 @@
 *.onnx
 .eggs
 denoise/tmp
+example_post.sh
+*.png
